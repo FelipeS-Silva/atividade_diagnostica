@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import atividade_diagnostica.produtos.Compra;
 import atividade_diagnostica.produtos.EnumProdutos;
 
 public class Main {
@@ -12,50 +13,61 @@ public class Main {
 
         String inicio = """
                 BEM VINDO AO MEU MERCADO
+                Caso queira comprar algum produto, digite 1. Caso não, digite outro valor
                 """;
 
         System.out.println(inicio);
 
-        List<EnumProdutos> produtos = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        boolean querComprar = scanner.nextLine().equals("1");
 
-        boolean querComprar = perguntaSeQuerComprar();
+        List<EnumProdutos> produtos = new ArrayList<>();
+        Compra compra = new Compra();
 
         while (querComprar) {
+
+            adicionarProduto(scanner, produtos, compra);
             
-            querComprar = perguntaSeQuerComprar();
+            querComprar = perguntaSeQuerComprar(scanner);
 
         }
 
+        String agradecimento = """
+                Muito obrigado por comprar no meu mercadinho. Até a próxima
+                """;
+
+        System.out.println(agradecimento);
+
+        System.exit(0);
 
     }
 
-    // private static float calculaSoma(List<Produto> produtos){
-
-    //     float valorFinal = 0;
-
-    //     for (Produto produto : produtos) {
-    //         valorFinal += produto.getValor();
-    //     }
-
-    //     return valorFinal;
-
-    // }
-
-    private static boolean perguntaSeQuerComprar(){
-
-        Scanner scanner = new Scanner(System.in);
+    private static boolean perguntaSeQuerComprar(Scanner scanner){
         
         String desejo = """
                 Caso deseje comprar mais algum produto, digite 1. Caso não, digite qualquer outra
                 """;
 
         System.out.println(desejo);
-
-        return scanner.nextLine().equals("1");
+        String linha = scanner.next();
+        
+        return linha.equals("1");
 
     }
 
-    private static void adicionarProduto(){
+    private static void adicionarProduto(Scanner scanner, List<EnumProdutos> produtos, Compra compra){
+
+        EnumProdutos.exibirProdutos();
+        System.out.println("O que deseja comprar?");
+        int indice = scanner.nextInt();
+
+        EnumProdutos produto = EnumProdutos.getById(indice);
+
+        if(produto != null) produtos.add(produto);
+
+        compra.adicionaProduto(indice);
+        
+        // scanner.close();
 
     }
     
