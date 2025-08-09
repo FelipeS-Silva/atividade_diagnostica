@@ -28,10 +28,14 @@ public class Main {
 
             adicionarProduto(scanner, produtos, compra);
             
+            compra.exibeProdutos(produtos);
+
             querComprar = perguntaSeQuerComprar(scanner);
 
         }
 
+        // TODO implementar a venda quando já parou de comprar coisa
+        
         String agradecimento = """
                 Muito obrigado por comprar no meu mercadinho. Até a próxima
                 """;
@@ -63,12 +67,12 @@ public class Main {
 
         EnumProdutos produto = EnumProdutos.getById(indice);
 
-        if(produto != null) produtos.add(produto);
-
-        compra.adicionaProduto(indice);
+        if(produto != null) {
+            produtos.add(produto);
+            compra.adicionaProduto(indice);
+            System.out.println("VOce adicionou o produto " + produto.getNome());
+        }
         
-        // scanner.close();
-
     }
     
 }

@@ -30,6 +30,8 @@ public class Compra {
 
         sb.append(String.format("O valor atual de sua compra é R$%.2f", valorFinal)).append("\n");
 
+        System.out.println(sb.toString());
+        
     }
     
 }
