@@ -34,6 +34,8 @@ public class Main {
 
         }
 
+        // TODO Implementar gorjeta
+        
         metodoPagamento(scanner, compra, produtos);
 
         String agradecimento = """
