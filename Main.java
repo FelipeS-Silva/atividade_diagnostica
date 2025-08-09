@@ -34,8 +34,8 @@ public class Main {
 
         }
 
-        // TODO implementar a venda quando já parou de comprar coisa
-        
+        metodoPagamento(scanner, compra, produtos);
+
         String agradecimento = """
                 Muito obrigado por comprar no meu mercadinho. Até a próxima
                 """;
@@ -49,7 +49,7 @@ public class Main {
     private static boolean perguntaSeQuerComprar(Scanner scanner){
         
         String desejo = """
-                Caso deseje comprar mais algum produto, digite 1. Caso não, digite qualquer outra
+                Caso deseje comprar mais algum produto, digite 1. Caso não, digite qualquer outra coisa
                 """;
 
         System.out.println(desejo);
@@ -70,9 +70,36 @@ public class Main {
         if(produto != null) {
             produtos.add(produto);
             compra.adicionaProduto(indice);
-            System.out.println("VOce adicionou o produto " + produto.getNome());
+            System.out.println("Você adicionou o produto " + produto.getNome());
         }
         
+    }
+
+    private static void metodoPagamento(Scanner scanner, Compra compra, List<EnumProdutos> produtos){
+        
+        // Apenas PIX
+
+        compra.exibeProdutos(produtos);
+
+        System.out.println("Qual o valor a ser pago?");
+
+        double pagamento = scanner.nextDouble();
+
+        compra.abatePagamento(pagamento);
+
+        if(compra.getValorFinal() > 0){
+            
+            metodoPagamento(scanner, compra, produtos);
+
+        }else if(compra.getValorFinal() == 0){
+
+            System.out.println("Valor totalmente pago. Sem troco");
+
+        }else{
+
+            System.out.println(String.format("Seu troco é de %.2f", compra.getValorFinal()*-1));
+        }
+
     }
     
 }

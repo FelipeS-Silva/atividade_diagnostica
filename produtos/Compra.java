@@ -33,5 +33,10 @@ public class Compra {
         System.out.println(sb.toString());
         
     }
-    
+
+    public void abatePagamento(double valorPago){
+        
+        valorFinal -= valorPago;
+        
+    }
 }
